@@ -1,5 +1,8 @@
 # wizard
 
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/deno-libs/wizard?style=flat-square) [![GitHub Workflow Status][gh-actions-img]][github-actions]
+[![Codecov][codecov-badge]][codecov] [![][docs-badge]][docs]
+
 Minimal Jest-like unit testing framework based on built-in `Deno.test()`.
 
 > Code is extracted from [Opine test utils file](https://github.com/asos-craigmorten/opine/blob/main/test/utils.ts).
@@ -26,3 +29,11 @@ test should run the passed function ... ok (2ms)
 
 test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 ```
+
+[gh-actions-img]: https://img.shields.io/github/workflow/status/deno-libs/wizard/CI?style=flat-square
+[codecov]: https://codecov.io/gh/deno-libs/wizard-deno
+[github-actions]: https://github.com/deno-libs/wizard-deno/actions
+[license]: https://github.com/deno-libs/wizard-deno/blob/master/LICENSE
+[codecov-badge]: https://img.shields.io/codecov/c/gh/deno-libs/wizard-deno?style=flat-square
+[docs-badge]: https://img.shields.io/github/v/release/deno-libs/wizard-deno?color=yellow&label=Docs&logo=deno&style=flat-square
+[docs]: https://doc.deno.land/https/deno.land/x/wizard/mod.ts
