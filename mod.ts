@@ -5,14 +5,14 @@ export * from 'https://deno.land/x/expect@v0.2.6/mod.ts'
  * @param name Suite name
  * @param fn suite body
  */
-export function describe(_name: string, fn: () => void | Promise<void>) {
+export function describe(_name: string, fn: () => void) {
   fn()
 }
 
 /**
  * Test timeout value
  */
-export const TEST_TIMEOUT = 3000
+export const TEST_TIMEOUT = 1000
 
 /**
  * Run a test
@@ -25,13 +25,13 @@ export const TEST_TIMEOUT = 3000
  */
 export function it(name: string, fn: (done: (err?: unknown) => void) => void | Promise<void>) {
   Deno.test(name, async () => {
-    let done = (err?: unknown) => {
+    const done = (err?: unknown) => {
       if (err) throw err
     }
 
-    let race: Promise<unknown> = Promise.resolve()
+    const race: Promise<unknown> = Promise.resolve()
 
-    if (fn.length === 1) {
+    /* if (fn.length === 1) {
       let resolve: (value?: unknown) => void
       const donePromise = new Promise((r) => {
         resolve = r
@@ -56,7 +56,7 @@ export function it(name: string, fn: (done: (err?: unknown) => void) => void | P
           throw err
         }
       }
-    }
+    } */
 
     await fn(done)
     await race

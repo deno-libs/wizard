@@ -20,10 +20,6 @@ jobs:
         run: deno test --unstable --coverage=coverage
       - name: Create coverage report
         run: deno --unstable coverage ./coverage --lcov > coverage.lcov
-      - name: Install genhtml
-        run: sudo apt install -y lcov
-      - name: Generate html report
-        run: genhtml -o coverage/html coverage.lcov
       - name: Collect coverage
         uses: codecov/codecov-action@v1.0.10
         with:

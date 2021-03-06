@@ -1,4 +1,13 @@
 import { describe, it, expect } from './mod.ts'
+import { serve } from 'https://deno.land/std@0.88.0/http/server.ts'
+
+const server = async () => {
+  const s = serve({ port: 3000 })
+
+  for await (const req of s) {
+    return 0
+  }
+}
 
 describe('describe()', () => {
   it('should run the passed function', () => {
