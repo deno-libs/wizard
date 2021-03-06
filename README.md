@@ -1,9 +1,9 @@
-# wizard
+# 🧙🏼‍♂️ Wizard
 
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/deno-libs/wizard?style=flat-square) [![GitHub Workflow Status][gh-actions-img]][github-actions]
 [![Codecov][codecov-badge]][codecov] [![][docs-badge]][docs]
 
-Minimal Jest-like unit testing framework based on built-in `Deno.test()`.
+Minimal Jest-like unit testing library based on built-in `Deno.test()`.
 
 > Code is extracted from [Opine test utils file](https://github.com/asos-craigmorten/opine/blob/main/test/utils.ts).
 
@@ -20,12 +20,18 @@ describe('A test suite', () => {
 })
 ```
 
+Then run:
+
+```sh
+deno test
+```
+
 Output:
 
 ```
 Check file:///home/v1rtl/Coding/deno-libs/wizard/$deno$test.ts
 running 1 tests
-test should run the passed function ... ok (2ms)
+test should sum a + b ... ok (2ms)
 
 test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 ```

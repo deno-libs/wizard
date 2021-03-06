@@ -37,4 +37,20 @@ describe('it()', () => {
       expect(val).toBe(42)
     })
   })
+  it('should finish the test when done() is called', () => {
+    const t1 = performance.now()
+    let t2 = 0
+    it('done', (done) => {
+      setTimeout(() => {
+        t2 = performance.now()
+        done()
+      }, 1000)
+      expect(Math.floor((t2 - t1) / 1000)).toBe(1)
+    })
+  })
+  it('should throw the error passed in done(err)', () => {
+    it('done(err)', (done) => {
+      expect(done(new Error('Custom error'))).toThrow('Custom error')
+    })
+  })
 })

@@ -23,7 +23,7 @@ export const TEST_TIMEOUT = 3000
  * it('should sum a + b', () => expect(1 + 1).toBe(2))
  * ```
  */
-export function it(name: string, fn: (done?: unknown) => void | Promise<void>) {
+export function it(name: string, fn: (done: (err?: unknown) => void) => void | Promise<void>) {
   Deno.test(name, async () => {
     let done = (err?: unknown) => {
       if (err) throw err
