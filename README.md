@@ -1,9 +1,9 @@
-# 🧙🏼‍♂️ Wizard
+# 🧙 Wizard
 
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/deno-libs/wizard?style=flat-square) [![GitHub Workflow Status][gh-actions-img]][github-actions]
 [![Codecov][codecov-badge]][codecov] [![][docs-badge]][docs]
 
-Minimal Jest-like unit testing library based on built-in `Deno.test()`.
+Minimal Jest-like wrapper for unit tests based on `Deno.test()`.
 
 > Code is extracted from [Opine test utils file](https://github.com/asos-craigmorten/opine/blob/main/test/utils.ts).
 
