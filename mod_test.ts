@@ -57,9 +57,11 @@ describe('it()', () => {
       expect(Math.floor((t2 - t1) / 1000)).toBe(1)
     })
   })
-  it('should throw the error passed in done(err)', () => {
-    it('done(err)', (done) => {
-      expect(done(new Error('Custom error'))).toThrow('Custom error')
-    })
+  it('should throw the error passed in done(err)', (done) => {
+    try {
+      done(new Error('Custom error'))
+    } catch (e) {
+      expect(e.message).toBe('Custom error')
+    }
   })
 })
