@@ -32,8 +32,8 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 
 [gh-actions-img]: https://img.shields.io/github/workflow/status/deno-libs/wizard/CI?style=flat-square
 [codecov]: https://codecov.io/gh/deno-libs/wizard
-[github-actions]: https://github.com/deno-libs/wizard-deno/actions
+[github-actions]: https://github.com/deno-libs/wizard/actions
 [license]: https://github.com/deno-libs/wizard-deno/blob/master/LICENSE
-[codecov-badge]: https://img.shields.io/codecov/c/gh/deno-libs/wizard-deno?style=flat-square
-[docs-badge]: https://img.shields.io/github/v/release/deno-libs/wizard-deno?color=yellow&label=Docs&logo=deno&style=flat-square
+[codecov-badge]: https://img.shields.io/codecov/c/gh/deno-libs/wizard?style=flat-square
+[docs-badge]: https://img.shields.io/github/v/release/deno-libs/wizard?color=yellow&label=Docs&logo=deno&style=flat-square
 [docs]: https://doc.deno.land/https/deno.land/x/wizard/mod.ts
