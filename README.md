@@ -31,7 +31,7 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 ```
 
 [gh-actions-img]: https://img.shields.io/github/workflow/status/deno-libs/wizard/CI?style=flat-square
-[codecov]: https://codecov.io/gh/deno-libs/wizard-deno
+[codecov]: https://codecov.io/gh/deno-libs/wizard
 [github-actions]: https://github.com/deno-libs/wizard-deno/actions
 [license]: https://github.com/deno-libs/wizard-deno/blob/master/LICENSE
 [codecov-badge]: https://img.shields.io/codecov/c/gh/deno-libs/wizard-deno?style=flat-square
