@@ -29,9 +29,6 @@ describe('it()', () => {
       expect(e.message).toBe('Custom error')
     }
   })
-  it('should throw', () => {
-    throw new Error('custom error')
-  })
 })
 
 run()
