@@ -1,18 +1,29 @@
+import { green, bold, gray, red } from 'https://deno.land/std@0.89.0/fmt/colors.ts'
 export * from 'https://deno.land/x/expect@v0.2.6/mod.ts'
+
+type Fn = (done: (err?: unknown) => void) => void | Promise<void>
+
+const msg = (...x: string[]) => Deno.stdout.writeSync(new TextEncoder().encode(x.join(' ')))
+
+let testSuites: {
+  name: string
+  cases: { name: string; case: Fn }[]
+}[] = []
+let currSuite = 0,
+  totalSuites = 0,
+  totalCases = 0
 
 /**
  * Run a test suite
  * @param name Suite name
  * @param fn suite body
  */
-export function describe(_name: string, fn: () => void) {
+export function describe(name: string, fn: () => void) {
+  testSuites.push({ name, cases: [] })
   fn()
+  currSuite++
+  totalSuites++
 }
-
-/**
- * Test timeout value
- */
-export const TEST_TIMEOUT = 1000
 
 /**
  * Run a test
@@ -23,42 +34,66 @@ export const TEST_TIMEOUT = 1000
  * it('should sum a + b', () => expect(1 + 1).toBe(2))
  * ```
  */
-export function it(name: string, fn: (done: (err?: unknown) => void) => void | Promise<void>) {
-  Deno.test(name, async () => {
-    const done = (err?: unknown) => {
-      if (err) throw err
-    }
+export function it(name: string, fn: Fn) {
+  testSuites[currSuite].cases.push({ name, case: fn })
+  totalCases++
+}
 
-    const race: Promise<unknown> = Promise.resolve()
+let failedCases = 0
 
-    /* if (fn.length === 1) {
-      let resolve: (value?: unknown) => void
-      const donePromise = new Promise((r) => {
-        resolve = r
-      })
+const summary = (totalSuites: number, failedSuites: number, suite: { cases: { case: Fn }[] }) => {
+  msg(
+    `\n\n\nTest Suites: ${green(`${totalSuites - failedSuites} passed`)}, ${red(
+      `${failedSuites} failed`
+    )}, ${totalSuites} total`
+  )
+  msg(
+    `\nTest Cases: ${green(`${suite.cases.length - 1 - failedCases} passed`)}, ${red(`${failedCases} failed`)}, ${
+      suite.cases.length - 1
+    } total\n`
+  )
+}
 
-      let timeoutId: number
+export const run = () => {
+  msg(bold(new URL('', import.meta.url).pathname), '\n')
 
-      race = Promise.race([
-        new Promise(
-          (_, reject) =>
-            (timeoutId = setTimeout(() => {
-              reject(new Error(`test "${name}" failed to complete by calling "done" within ${TEST_TIMEOUT}ms.`))
-            }, TEST_TIMEOUT))
-        ),
-        donePromise
-      ])
+  let failedSuites = 0
 
-      done = (err?: unknown) => {
-        clearTimeout(timeoutId)
-        resolve()
-        if (err) {
-          throw err
+  testSuites.forEach((suite, i) => {
+    msg(`\n${suite.name} \n`)
+
+    suite.cases.forEach((t, ii) => {
+      msg(`  ${gray(t.name)}\n`)
+
+      Deno.test({
+        name: t.name,
+        fn: async () => {
+          const done = (err: unknown) => {
+            if (err) throw err
+          }
+
+          try {
+            const t1 = performance.now()
+            await t.case(done)
+            const t2 = performance.now()
+            msg(`\n${green(bold('PASS'))} ${suite.name} > ${bold(t.name)} (${t2 - t1}ms) \n`)
+          } catch (e) {
+            msg(red(`\n${bold('FAIL')} ${suite.name} > ${bold(t.name)}\n`))
+            msg(e.stack)
+
+            failedSuites++
+            failedCases++
+            summary(totalSuites, failedSuites, suite)
+            throw e
+          }
+
+          // msg(`  ${!testFailed ? green('✓') : red('×')} ${gray(t.name)}\n`)
+
+          if (testSuites.length - 1 === i && suite.cases.length - 1 === ii) {
+            summary(totalSuites, failedSuites, suite)
+          }
         }
-      }
-    } */
-
-    await fn(done)
-    await race
+      })
+    })
   })
 }
