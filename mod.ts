@@ -5,10 +5,15 @@ type Fn = (done: (err?: unknown) => void) => void | Promise<void>
 
 const msg = (...x: string[]) => Deno.stdout.writeSync(new TextEncoder().encode(x.join(' ')))
 
-let testSuites: {
+const testSuites: {
   name: string
   cases: { name: string; case: Fn }[]
-}[] = []
+}[] = [
+  {
+    name: '',
+    cases: []
+  }
+]
 let currSuite = 0,
   totalSuites = 0,
   totalCases = 0
@@ -55,7 +60,7 @@ const summary = (totalSuites: number, failedSuites: number, suite: { cases: { ca
 }
 
 export const run = () => {
-  msg(bold(new URL('', import.meta.url).pathname), '\n')
+  // msg(bold(new URL('', import.meta.url).pathname), '\n')
 
   let failedSuites = 0
 
