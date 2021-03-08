@@ -8,15 +8,9 @@ const msg = (...x: string[]) => Deno.stdout.writeSync(new TextEncoder().encode(x
 const testSuites: {
   name: string
   cases: { name: string; case: Fn }[]
-}[] = [
-  {
-    name: '',
-    cases: []
-  }
-]
+}[] = []
 let currSuite = 0,
-  totalSuites = 0,
-  totalCases = 0
+  totalSuites = 0
 
 /**
  * Run a test suite
@@ -40,8 +34,8 @@ export function describe(name: string, fn: () => void) {
  * ```
  */
 export function it(name: string, fn: Fn) {
+  if (!testSuites[currSuite]) testSuites[currSuite] = { name: '', cases: [] }
   testSuites[currSuite].cases.push({ name, case: fn })
-  totalCases++
 }
 
 let failedCases = 0
@@ -65,10 +59,14 @@ export const run = () => {
   let failedSuites = 0
 
   testSuites.forEach((suite, i) => {
-    msg(`\n${suite.name} \n`)
+    if (suite.name !== '') msg(`\n${suite.name} \n`)
 
     suite.cases.forEach((t, ii) => {
-      msg(`  ${gray(t.name)}\n`)
+      if (suite.name === '') {
+        msg(`${t.name}\n`)
+      } else {
+        msg(`  ${gray(t.name)}\n`)
+      }
 
       Deno.test({
         name: t.name,
