@@ -1,3 +1,4 @@
+import { ms } from 'https://deno.land/x/ms@v0.1.0/ms.ts'
 import { green, bold, gray, red } from 'https://deno.land/std@0.89.0/fmt/colors.ts'
 export * from 'https://deno.land/x/expect@v0.2.6/mod.ts'
 
@@ -34,7 +35,9 @@ export function describe(name: string, fn: () => void) {
  * ```
  */
 export function it(name: string, fn: Fn) {
-  if (!testSuites[currSuite]) testSuites[currSuite] = { name: '', cases: [] }
+  if (!testSuites[currSuite]) {
+    testSuites.push({ name: '', cases: [] })
+  }
   testSuites[currSuite].cases.push({ name, case: fn })
 }
 
@@ -75,13 +78,15 @@ export const run = () => {
             if (err) throw err
           }
 
+          const suiteName = suite.name ? ` ${suite.name} >` : ''
+
           try {
             const t1 = performance.now()
             await t.case(done)
             const t2 = performance.now()
-            msg(`\n${green(bold('PASS'))} ${suite.name} > ${bold(t.name)} (${t2 - t1}ms) \n`)
+            msg(`\n${green(bold('PASS'))}${suiteName} ${bold(t.name)} (${ms(t2 - t1)}) \n`)
           } catch (e) {
-            msg(red(`\n${bold('FAIL')} ${suite.name} > ${bold(t.name)}\n`))
+            msg(red(`\n${bold('FAIL')}${suiteName} ${bold(t.name)}\n`))
             msg(e.stack)
 
             failedSuites++

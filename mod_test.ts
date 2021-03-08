@@ -35,4 +35,8 @@ it('should support top-level cases', () => {
   expect(1).toBe(1)
 })
 
+it('should support multiple top-level cases', () => {
+  expect(2).toBe(2)
+})
+
 run()
