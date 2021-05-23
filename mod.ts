@@ -1,5 +1,5 @@
 import { ms } from 'https://deno.land/x/ms@v0.1.0/ms.ts'
-import { green, bold, gray, red } from 'https://deno.land/std@0.89.0/fmt/colors.ts'
+import { green, bold, gray, red } from 'https://deno.land/std@0.97.0/fmt/colors.ts'
 export * from 'https://deno.land/x/expect@v0.2.6/mod.ts'
 
 type Fn = (done: (err?: unknown) => void) => void | Promise<void>

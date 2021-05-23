@@ -1,3 +1,5 @@
+> ## ⚠️ Wizard is deprecated in favor of [tincan](https://github.com/gcaptn/tincan).
+
 ![](screenshot.png)
 
 # 🧙 Wizard
